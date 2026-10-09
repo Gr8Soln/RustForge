@@ -1,0 +1,30 @@
+[workspace]
+resolver = "2"
+members = [
+    "projects/*",
+    "crates/*",
+    "apps/*",
+]
+# Empty glob matches are fine — add real members here (or let the glob
+# pick them up) as each project/crate/app gets its own Cargo.toml.
+
+[workspace.package]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/Gr8Soln/RustForge"
+
+# Pin shared versions once here; member crates reference them with
+# `serde = { workspace = true }` instead of restating a version.
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+thiserror = "1"
+anyhow = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+clap = { version = "4", features = ["derive"] }
+
+[profile.release]
+lto = true
+codegen-units = 1
